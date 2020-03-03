@@ -1,205 +1,109 @@
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.Scanner;
-import java.util.Stack;
+import java.io.IOException;
 
 public class Laba2 {
 
-
-        public static void main(String[] args) {
-
-            Stack<String> stack = new Stack<>();
-            Deque<Double> chisla = new ArrayDeque<>();
-            Scanner in = new Scanner(System.in);
-            double Sum = 0;
-            System.out.print("Введите выражение: ");
-            String Expression = in.nextLine();
-            String[] symbol = new String[Expression.length() + 100];
-            int i = 1;
-            int k = 1;
-            symbol[0] = String.valueOf(Expression.charAt(0));
-            //Разбитие строки на элементы и запихивание в массив
-            while (k < Expression.length()) {
-                if ((symbol[i - 1].charAt(0) >= '0' && symbol[i - 1].charAt(0) <= '9' && Expression.charAt(k) >= '0' && Expression.charAt(k) <= '9')
-                        || (symbol[i - 1].length() > 1 && ((symbol[i - 1].charAt(1) >= '0' && symbol[i - 1].charAt(1) <= '9' && Expression.charAt(k) >= '0' && Expression.charAt(k) <= '9')))
-                        || (i > 1 && Expression.charAt(k) >= '0' && Expression.charAt(k) <= '9' && symbol[i - 1].charAt(0) == '-' && symbol[i - 2].charAt(0) == '(')
-                        ||(Expression.charAt(k) >= '0' && Expression.charAt(k) <= '9'&&i==1&&symbol[i-1].charAt(0)=='-')
-                ) {
-                    symbol[i - 1] = symbol[i - 1] + Expression.charAt(k);
-                } else {
-
-                    symbol[i] = "" + Expression.charAt(k);
-
-
-
-                    if ((symbol[i - 1].charAt(0) <= '9' && symbol[i - 1].charAt(0) >= '0')|| (symbol[i - 1].length() > 1 && symbol[i - 1].charAt(1) >= '0' && symbol[i - 1].charAt(1) <= '9')) {
-                        chisla.push(Double.parseDouble(symbol[i - 1]));
-                    } else {
-
-                        if (symbol[i - 1].charAt(0) == ')') {
-                            boolean key = false;
-                            while (1 > 0) {
-                                if (stack.size() > 0 && stack.peek().equals("+")) {
-                                    chisla.push(chisla.pop() + chisla.pop());
-
-                                    stack.pop();
-                                }
-                                if (stack.size() > 0 && stack.peek().equals("-")) {
-                                    chisla.push(-chisla.pop() + chisla.pop());
-                                    stack.pop();
-                                }
-                                if (stack.size() > 0 && stack.peek().equals("/")) {
-                                    double pochka = chisla.pop();
-                                    chisla.push(chisla.pop() / pochka);
-                                    stack.pop();
-                                }
-                                if (stack.size() > 0 && stack.peek().equals("*")) {
-                                    chisla.push(chisla.pop() * chisla.pop());
-                                    stack.pop();
-                                }
-                                if (stack.peek().equals("(")) {
-                                    stack.pop();
-                                    break;
-                                }
-
-                            }
-
-
-                        } else if (stack.size() > 0 && (symbol[i - 1].charAt(0) == '*' || symbol[i - 1].charAt(0) == '/') && (stack.peek().equals("*") || stack.peek().equals("/"))) {
-                            if (stack.peek().equals("*")) {
-                                chisla.push(chisla.pop() * chisla.pop());
-                                stack.pop();
-                            } else if (stack.peek().equals("/")) {
-                                double pack = chisla.pop();
-                                chisla.push(chisla.pop() / pack);
-                                stack.pop();
-                            }
-                            stack.push(symbol[i - 1]);
-                        } else if (symbol[i - 1].charAt(0) == '(' || stack.size() < 1 || symbol[i - 1].charAt(0) == '*' || symbol[i - 1].charAt(0) == '/') {
-                            stack.push(symbol[i - 1]);
-                        } else {
-                            if ((symbol[i - 1].charAt(0) == '+' || symbol[i - 1].charAt(0) == '-') && !stack.peek().equals("(")) {
-                                if (stack.size() > 0 && stack.peek().equals("+")) {
-                                    chisla.push(chisla.pop() + chisla.pop());
-
-                                    stack.pop();
-                                    stack.push(symbol[i - 1]);
-                                } else if (stack.size() > 0 && stack.peek().equals("-")) {
-                                    chisla.push(-chisla.pop() + chisla.pop());
-                                    stack.pop();
-                                    stack.push(symbol[i - 1]);
-                                } else if (stack.size() > 0 && stack.peek().equals("/")) {
-                                    double pack = chisla.pop();
-                                    chisla.push(chisla.pop() / pack);
-                                    stack.pop();
-                                    stack.push(symbol[i - 1]);
-                                } else if (stack.size() > 0 && stack.peek().equals("*")) {
-                                    chisla.push(chisla.pop() * chisla.pop());
-                                    stack.pop();
-                                    stack.push(symbol[i - 1]);
-                                }
-                            } else stack.push(symbol[i - 1]);
-                        }
-
-
-                    }
-
+        public static int getPriority(char s)
+        {
+            switch (s)
+            {
+                case '^': return 4;
+                case '*': case '/': return 3;
+                case '+': case '-': return 2;
+                case '(': case ')': return 1;
+                default: return 0;
+            }
+        }
+        public static String perevod(String vvod)
+        {
+            char n;
+            String output = "";
+            Stack opz = new Stack(vvod.length());
+            for(int i = 0; i < vvod.length(); i++)
+            {
+                if(i == 0 && vvod.charAt(i) == '-') output+="0 ";
+                while(Character.isDigit(vvod.charAt(i)))
+                {
+                    output+=vvod.charAt(i);
+                    if(i == vvod.length()-1) break;
                     i++;
                 }
-                k++;
-
-            }
-
-
-
-
-
-            if (symbol[i - 1].charAt(0) <= '9' && symbol[i - 1].charAt(0) >= '0') {
-                chisla.push(Double.parseDouble(symbol[i - 1]));
-            }
-            else {
-
-                if (symbol[i - 1].charAt(0) == ')') {
-                    boolean key = false;
-                    while (1 > 0) {
-                        if (stack.size() > 0 && stack.peek().equals("+")) {
-                            chisla.push(chisla.pop() + chisla.pop());
-
-                            stack.pop();
-                        }
-                        if (stack.size() > 0 && stack.peek().equals("-")) {
-                            chisla.push(-chisla.pop() + chisla.pop());
-                            stack.pop();
-                        }
-                        if (stack.size() > 0 && stack.peek().equals("/")) {
-                            double pochka = chisla.pop();
-                            chisla.push(chisla.pop() / pochka);
-                            stack.pop();
-                        }
-                        if (stack.size() > 0 && stack.peek().equals("*")) {
-                            chisla.push(chisla.pop() * chisla.pop());
-                            stack.pop();
-                        }
-                        if (stack.peek().equals("(")) {
-                            stack.pop();
+                output+=" ";
+                if(getPriority(vvod.charAt(i)) == 0)
+                    continue;
+                else
+                {
+                    switch (vvod.charAt(i))
+                    {
+                        case '(':
+                            opz.push(vvod.charAt(i));
                             break;
+                        case '*': case '/': case '+': case '-': case '^':
+
+                        while(!opz.isEmpty() && (getPriority(vvod.charAt(i)) <= getPriority((char)opz.showTop())))
+                        {
+                            output+=opz.showTop();
+                            opz.pop();
                         }
+                        if(opz.isEmpty() || getPriority(vvod.charAt(i)) > getPriority((char)opz.showTop()) && !opz.isEmpty())
+                        {
+                            opz.push(vvod.charAt(i));
+                        }
+                        break;
+                        case ')':
+                            while ((char)opz.showTop() != '(')
+                            {
+                                output+=(char)opz.showTop();
+                                opz.pop();
+                            }
+                            opz.pop();
                     }
-
-
-                } else if (symbol[i - 1].charAt(0) == '(' || stack.size() < 1 || symbol[i - 1].charAt(0) == '*' || symbol[i - 1].charAt(0) == '/') {
-                    stack.push(symbol[i - 1]);
-                } else {
-                    if ((symbol[i - 1].charAt(0) == '+' || symbol[i - 1].charAt(0) == '-') && !stack.peek().equals("(")) {
-
-                        if (stack.size() > 0 && stack.peek().equals("+")) {
-                            chisla.push(chisla.pop() + chisla.pop());
-
-                            stack.pop();
-                        } else if (stack.size() > 0 && stack.peek().equals("-")) {
-                            chisla.push(-chisla.pop() + chisla.pop());
-                            stack.pop();
-                        } else if (stack.size() > 0 && stack.peek().equals("/")) {
-                            double pack = chisla.pop();
-                            chisla.push(chisla.pop() / pack);
-                            stack.pop();
-                        } else if (stack.size() > 0 && stack.peek().equals("*")) {
-                            chisla.push(chisla.pop() * chisla.pop());
-                            stack.pop();
-                        }
-                    } else stack.push(symbol[i - 1]);
                 }
-
             }
-
-
-            while (stack.size() > 0) {
-
-                if (stack.size() > 0 && stack.peek().equals("+")) {
-                    chisla.push(chisla.pop() + chisla.pop());
-
-                    stack.pop();
-                }
-                if (stack.size() > 0 && stack.peek().equals("-")) {
-                    chisla.push(-chisla.pop() + chisla.pop());
-                    stack.pop();
-                }
-                if (stack.size() > 0 && stack.peek().equals("/")) {
-                    double pack = chisla.pop();
-                    chisla.push(chisla.pop() / pack);
-                    stack.pop();
-                }
-                if (stack.size() > 0 && stack.peek().equals("*")) {
-                    chisla.push(chisla.pop() * chisla.pop());
-                    stack.pop();
-                }
-
+            while(!opz.isEmpty()) {
+                output += (char) opz.showTop();
+                opz.pop();
             }
-
-
-            System.out.print(chisla.peek());
-
+            return output;
         }
+        public static void main(String[] args) throws IOException {
+            Scanner sc = new Scanner(System.in);
+            String input, output = "";
+            input = sc.nextLine();
 
+            output = perevod(input);
 
+            Stack calc = new Stack(output.length());
+            int x1, x2, otvet = 0;
+            String num = "";
+            for(int i = 0; i < output.length(); i++)
+            {
+                if(Character.isDigit(output.charAt(i)))  num+= output.charAt(i);
+                else if(output.charAt(i) == ' ')
+                {
+                    if(num!="") {
+                        calc.push(Integer.parseInt(num));
+                        num = "";
+                    }
+                }
+                else
+                {
+                    x2 = (int)calc.pop();
+                    x1 = (int)calc.pop();
+                    switch (output.charAt(i))
+                    {
+                        case '+': otvet = x1 + x2; break;
+                        case '-': otvet = x1 - x2; break;
+                        case '*': otvet = x1 * x2; break;
+                        case '/': otvet = x1 / x2; break;
+                        case '^': otvet = (int)Math.pow(x1,x2); break;
+                        default: System.out.println("Ошибка"); break;
+                    }
+                    calc.push(otvet);
+                }
+            }
+            System.out.println("Ответ: " + otvet);
+        }
     }
