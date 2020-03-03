@@ -1,11 +1,10 @@
-import java.util.ArrayDeque;
-import java.util.Deque;
 import java.util.Scanner;
 import java.io.IOException;
 
 public class Laba2 {
 
-        public static int getPriority(char s)
+    //Нумерация символов
+        public static int Numeration(char s)
         {
             switch (s)
             {
@@ -16,6 +15,7 @@ public class Laba2 {
                 default: return 0;
             }
         }
+        //Перевод в обр. польскую
         public static String perevod(String vvod)
         {
             char n;
@@ -31,7 +31,7 @@ public class Laba2 {
                     i++;
                 }
                 output+=" ";
-                if(getPriority(vvod.charAt(i)) == 0)
+                if(Numeration(vvod.charAt(i)) == 0)
                     continue;
                 else
                 {
@@ -42,12 +42,12 @@ public class Laba2 {
                             break;
                         case '*': case '/': case '+': case '-': case '^':
 
-                        while(!opz.isEmpty() && (getPriority(vvod.charAt(i)) <= getPriority((char)opz.showTop())))
+                        while(!opz.isEmpty() && (Numeration(vvod.charAt(i)) <= Numeration((char)opz.showTop())))
                         {
                             output+=opz.showTop();
                             opz.pop();
                         }
-                        if(opz.isEmpty() || getPriority(vvod.charAt(i)) > getPriority((char)opz.showTop()) && !opz.isEmpty())
+                        if(opz.isEmpty() || Numeration(vvod.charAt(i)) > Numeration((char)opz.showTop()) && !opz.isEmpty())
                         {
                             opz.push(vvod.charAt(i));
                         }
@@ -71,6 +71,7 @@ public class Laba2 {
         public static void main(String[] args) throws IOException {
             Scanner sc = new Scanner(System.in);
             String input, output = "";
+            System.out.print("Введите выражение: ");
             input = sc.nextLine();
 
             output = perevod(input);
@@ -99,7 +100,7 @@ public class Laba2 {
                         case '*': otvet = x1 * x2; break;
                         case '/': otvet = x1 / x2; break;
                         case '^': otvet = (int)Math.pow(x1,x2); break;
-                        default: System.out.println("Ошибка"); break;
+                        default: System.out.println("Не правильно)\n"); break;
                     }
                     calc.push(otvet);
                 }
