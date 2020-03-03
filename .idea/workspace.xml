@@ -37,8 +37,8 @@
     </option>
   </component>
   <component name="RunManager">
-    <configuration name="Laba1" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Laba1" />
+    <configuration name="Laba2" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Laba2" />
       <module name="LabsJava" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -46,7 +46,7 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Laba1" />
+        <item itemvalue="Application.Laba2" />
       </list>
     </recent_temporary>
   </component>
