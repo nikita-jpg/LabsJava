@@ -25,7 +25,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Downloads/jsoup-1.13.1.jar!/" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
@@ -71,26 +71,34 @@
     </option>
   </component>
   <component name="WindowStateProjectService">
-    <state width="1493" height="210" key="GridCell.Tab.0.bottom" timestamp="1584609419723">
+    <state x="524" y="314" key="FileChooserDialogImpl" timestamp="1584622784701">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="210" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1584609419723" />
-    <state width="1493" height="210" key="GridCell.Tab.0.center" timestamp="1584609419723">
+    <state x="524" y="314" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1584622784701" />
+    <state width="1493" height="115" key="GridCell.Tab.0.bottom" timestamp="1584609539102">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="210" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1584609419723" />
-    <state width="1493" height="210" key="GridCell.Tab.0.left" timestamp="1584609419723">
+    <state width="1493" height="115" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1584609539102" />
+    <state width="1493" height="115" key="GridCell.Tab.0.center" timestamp="1584609539102">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="210" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1584609419723" />
-    <state width="1493" height="210" key="GridCell.Tab.0.right" timestamp="1584609419723">
+    <state width="1493" height="115" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1584609539102" />
+    <state width="1493" height="115" key="GridCell.Tab.0.left" timestamp="1584609539102">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="210" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1584609419723" />
-    <state x="470" y="236" key="com.intellij.ide.util.TipDialog" timestamp="1584605834531">
+    <state width="1493" height="115" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1584609539102" />
+    <state width="1493" height="115" key="GridCell.Tab.0.right" timestamp="1584609539102">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="470" y="236" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1584605834531" />
+    <state width="1493" height="115" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1584609539102" />
+    <state x="249" y="0" key="SettingsEditor" timestamp="1584622800380">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="249" y="0" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1584622800380" />
+    <state x="470" y="236" key="com.intellij.ide.util.TipDialog" timestamp="1584622583546">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="470" y="236" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1584622583546" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
