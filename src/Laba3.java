@@ -13,36 +13,61 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Laba3 {
 
-
-    static int i=1;
-    public static BufferedImage Parse(String url) throws IOException {
-        URL urlImage = new URL(url);
-        HttpURLConnection connection = (HttpURLConnection) urlImage.openConnection();
-        connection.setRequestMethod("GET");
-
-        BufferedImage bufferedImage = ImageIO.read(urlImage);
-
-        String expansion = url.substring(url.lastIndexOf('.'));
-        String name = String.valueOf(i);
-        ImageIO.write(bufferedImage,"png",new File("C:\\Users\\Nikita\\Desktop\\MyVideo\\"+name+expansion));
-        i++;
-        return bufferedImage;
-    }
-        public static void main(String[] args) throws IOException {
-
-            ArrayList<BufferedImage> arr;
-            String url = "https://student.mirea.ru/media/photo";
-            Document doc = (Document) Jsoup.connect(url).get();
-            Elements imgElement = doc.select("img");
-            arr = new ArrayList<BufferedImage>();
-
-            for( Element element: imgElement){
-                Parse("https://student.mirea.ru/"+element.attr("src"));
+    public static void main(String[] args) throws IOException {
+        ArrayList<String> titles = new ArrayList<>();
+        ArrayList<String> Links = new ArrayList<>();
+        List<Document> docs = new ArrayList<>();
+        Document doc = Jsoup.connect("https://student.mirea.ru/media/photo/").get();
+        Elements elements = doc.getElementsByAttributeValue("class", "h3 g-font-weight-500 mb-1");
+        Elements links = doc.getElementsByAttributeValue("class", "u-link-v2");
+        elements.forEach(element -> {
+            String title = element.text();
+            titles.add(title);
+        });
+        links.forEach(link-> {
+            String Link = link.attr("href");
+            Links.add(Link);
+        });
+        titles.forEach(title-> {
+            File file = new File("C:\\Users\\Nikita\\Desktop\\test\\" + removeChar(title, '\"'));
+            file.mkdirs();
+        });
+        Links.forEach(Link->{
+            Document l = null;
+            try {
+                l = Jsoup.connect("https://student.mirea.ru/" + Link).get();
+                docs.add(l);
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-
+        });
+        docs.forEach(l->{
+            Elements aElements = l.getElementsByAttributeValue("class", "img-fluid u-block-hover__main--grayscale u-block-hover__img");
+            aElements.forEach(aElement -> {
+                BufferedImage image;
+                File fileImg = new File("C:\\Users\\Nikita\\Desktop\\test\\" + removeChar(titles.get(docs.indexOf(l)), '\"') + "\\" + (aElements.indexOf(aElement)+1) + ".jpg");
+                String url = aElement.attr("src");
+                try {
+                    URL photo = new URL("https://student.mirea.ru/" + url);
+                    image = ImageIO.read(photo);
+                    if (image != null)
+                        ImageIO.write(image, "jpg", fileImg);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+        });
+    }
+    public static String removeChar(String s, char c) {
+        String r = "";
+        for (int i = 0; i < s.length(); i ++) {
+            if (s.charAt(i) != c) r += s.charAt(i);
         }
+        return r;
+    }
     }
